@@ -1,0 +1,138 @@
+@import '@angular/material/prebuilt-themes/purple-green.css';
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #ffe8d6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+/* Material Dark Theme Overrides — Earthy palette */
+.mat-mdc-card {
+  border-radius: 12px !important;
+  background-color: #2b2c28 !important;
+  color: #ddbea9 !important;
+  border: 1px solid #6b705c !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.mat-mdc-card-title {
+  color: #ffe8d6 !important;
+}
+
+.mat-mdc-card-subtitle {
+  color: #b7b7a4 !important;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+/* Make filled inputs look modern in dark mode — earthy palette */
+.mdc-text-field--filled {
+  --mdc-filled-text-field-container-color: #2b2c28 !important;
+  --mdc-filled-text-field-hover-container-color: #6b705c !important;
+  --mdc-filled-text-field-focus-container-color: #2b2c28 !important;
+  --mdc-filled-text-field-active-indicator-color: #a5a58d !important;
+  --mdc-filled-text-field-hover-active-indicator-color: #cb997e !important;
+  --mdc-filled-text-field-focus-active-indicator-color: #ddbea9 !important;
+  --mdc-filled-text-field-input-text-color: #ffe8d6 !important;
+  --mdc-filled-text-field-caret-color: #ddbea9 !important;
+  --mdc-filled-text-field-label-text-color: #b7b7a4 !important;
+  --mdc-filled-text-field-hover-label-text-color: #ddbea9 !important;
+  --mdc-filled-text-field-focus-label-text-color: #cb997e !important;
+  
+  /* Error states */
+  --mdc-filled-text-field-error-active-indicator-color: #ef5350 !important;
+  --mdc-filled-text-field-error-hover-active-indicator-color: #ef5350 !important;
+  --mdc-filled-text-field-error-focus-active-indicator-color: #ef5350 !important;
+  --mdc-filled-text-field-error-label-text-color: #ef5350 !important;
+  --mdc-filled-text-field-error-caret-color: #ef5350 !important;
+}
+
+.mdc-text-field--filled {
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+
+.mdc-floating-label {
+  color: #b7b7a4 !important;
+}
+
+.mat-mdc-select-arrow svg {
+  fill: #ddbea9 !important;
+}
+
+.mdc-text-field__icon {
+  color: #ddbea9 !important;
+}
+
+/* Button Overrides — Earthy */
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: #6b705c;
+  --mdc-protected-button-label-text-color: #ffe8d6;
+}
+
+.mat-mdc-button:disabled, .mat-mdc-raised-button:disabled {
+  background-color: #2b2c28 !important;
+  color: #a5a58d !important;
+}
+
+/* Select dropdowns */
+.mat-mdc-select-panel {
+  background-color: #2b2c28 !important;
+}
+
+.mat-mdc-option {
+  color: #ddbea9 !important;
+}
+.mat-mdc-option:hover {
+  background-color: #6b705c !important;
+}
+
+/* Header/Toolbar styling */
+.mat-toolbar.mat-primary {
+  background-color: #2b2c28 !important;
+  color: #ffe8d6 !important;
+  border-bottom: 1px solid #6b705c !important;
+}
+
+/* Dialog/Modals */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: #2b2c28 !important;
+  color: #ffe8d6 !important;
+}
+
+/* Tabs */
+.mat-mdc-tab-header {
+  color: #ddbea9 !important;
+}
+.mat-mdc-tab .mdc-tab__text-label {
+  color: #b7b7a4 !important;
+}
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #ffe8d6 !important;
+}
+.mat-mdc-tab:hover .mdc-tab__text-label {
+  color: #ddbea9 !important;
+}
+
+/* Snackbar */
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #6b705c !important;
+  --mdc-snackbar-supporting-text-color: #ffe8d6 !important;
+}

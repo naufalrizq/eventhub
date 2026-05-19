@@ -1,0 +1,46 @@
+# Angular
+.angular/
+node_modules/
+dist/
+*.local
+
+# Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/wrapper/maven-wrapper.jar
+
+# Environment files
+.env
+.env.local
+.env.*.local
+application-prod.yml
+application-local.yml
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Coverage
+coverage/
+
+# Docker volumes
+postgres_data/
+redis_data/

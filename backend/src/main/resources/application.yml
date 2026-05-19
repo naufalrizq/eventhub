@@ -1,0 +1,201 @@
+spring:
+  application:
+    name: eventhub-backend
+  
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5434/eventhub}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres123}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+      leak-detection-threshold: 60000
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+    open-in-view: false
+  
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
+  
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DATABASE:0}
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+  
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000 # 10 minutes
+      cache-null-values: false
+  
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+  
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+  http2:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  level:
+    com.eventhub: ${LOG_LEVEL:INFO}
+    org.springframework.security: ${SECURITY_LOG_LEVEL:WARN}
+    org.hibernate.SQL: ${SQL_LOG_LEVEL:WARN}
+    org.hibernate.type.descriptor.sql.BasicBinder: ${SQL_BIND_LOG_LEVEL:WARN}
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/eventhub.log
+
+# Application specific configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET:your-super-secret-jwt-key-change-in-production-minimum-32-characters}
+    access-token-expiration: ${JWT_ACCESS_EXPIRATION:900000} # 15 minutes
+    refresh-token-expiration: ${JWT_REFRESH_EXPIRATION:604800000} # 7 days
+  
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200,http://localhost:3000}
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+    allowed-headers: "*"
+    allow-credentials: true
+    max-age: 3600
+  
+  file:
+    upload-dir: ${FILE_UPLOAD_DIR:./uploads}
+    max-size: ${FILE_MAX_SIZE:10485760} # 10MB
+    allowed-types: image/jpeg,image/png,image/gif,application/pdf
+  
+  event:
+    default-capacity: 100
+    max-capacity: 10000
+    registration-deadline-hours: 2
+    cancellation-deadline-hours: 24
+  
+  payment:
+    provider: stripe # stripe, paypal, mock
+    stripe:
+      public-key: ${STRIPE_PUBLIC_KEY:}
+      secret-key: ${STRIPE_SECRET_KEY:}
+    webhook-secret: ${PAYMENT_WEBHOOK_SECRET:}
+  
+  notification:
+    email:
+      enabled: ${EMAIL_NOTIFICATIONS_ENABLED:true}
+      from: ${EMAIL_FROM:noreply@eventhub.com}
+      templates-path: classpath:templates/email
+    sms:
+      enabled: ${SMS_NOTIFICATIONS_ENABLED:false}
+      provider: twilio
+      account-sid: ${TWILIO_ACCOUNT_SID:}
+      auth-token: ${TWILIO_AUTH_TOKEN:}
+      from-number: ${TWILIO_FROM_NUMBER:}
+
+---
+# Development profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+  
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.eventhub: DEBUG
+    org.springframework.security: DEBUG
+
+---
+# Docker profile
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+---
+# Production profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+  
+  jpa:
+    show-sql: false
+  
+  datasource:
+    hikari:
+      maximum-pool-size: 50
+
+logging:
+  level:
+    com.eventhub: INFO
+    org.springframework.security: WARN
